@@ -26,7 +26,7 @@ audio.volume = volume;
 if (tracks.length === 0) {
     tracks = [
         { id: 1, title: 'Autor da Vida', artist: 'Peruche Adoração', genre: 'Gospel', year: '2026', emoji: '🎸', url: './music/autor-da-vida.mp3', liked: false, playlist: 'Teste' },
-        { id: 2, title: 'Novo Dia - Guitar Cam', artist: 'Mario Oliveira', genre: 'Gospel', year: '2026', emoji: '🎸', url: './music/novo-dia', liked: false, playlist: 'Teste 2' },
+        { id: 2, title: 'Novo Dia - Guitar Cam', artist: 'Mario Oliveira', genre: 'Gospel', year: '2026', emoji: '🎸', url: './music/novo-dia.mp3', liked: false, playlist: 'Teste 2' },
 
     ];
     saveTracks();
