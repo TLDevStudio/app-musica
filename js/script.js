@@ -1,10 +1,17 @@
+// ── Isolamento por site ──
+// O localStorage é compartilhado por domínio, não por repositório.
+// Se este app estiver hospedado em algo como "usuario.github.io/algum-repo/",
+// usamos o caminho (pathname) como parte da chave, para que cada projeto
+// tenha sua própria "gaveta" de dados mesmo estando no mesmo domínio.
+const STORAGE_PREFIX = 'mysound_' + location.pathname.replace(/[^a-zA-Z0-9]/g, '_') + '_';
+
 const DATA_VERSION = 'v5';
-if (localStorage.getItem('mysound_data_version') !== DATA_VERSION) {
-    localStorage.removeItem('mysound_tracks');
-    localStorage.setItem('mysound_data_version', DATA_VERSION);
+if (localStorage.getItem(STORAGE_PREFIX + 'data_version') !== DATA_VERSION) {
+    localStorage.removeItem(STORAGE_PREFIX + 'tracks');
+    localStorage.setItem(STORAGE_PREFIX + 'data_version', DATA_VERSION);
 }
 
-let tracks = JSON.parse(localStorage.getItem('mysound_tracks') || '[]');
+let tracks = JSON.parse(localStorage.getItem(STORAGE_PREFIX + 'tracks') || '[]');
 let currentIdx = -1;
 let isPlaying = false;
 let isShuffle = false;
@@ -26,7 +33,7 @@ if (tracks.length === 0) {
 }
 
 function saveTracks() {
-    localStorage.setItem('mysound_tracks', JSON.stringify(tracks));
+    localStorage.setItem(STORAGE_PREFIX + 'tracks', JSON.stringify(tracks));
 }
 
 function render(list) {
@@ -399,7 +406,7 @@ playlistStyle.textContent = `
     cursor: pointer;
     transition: border-color 0.2s;
 }
-.playlist-box:hover { border-color: rgba(232,255,71,0.3); }
+.playlist-box:hover { border-color: var(--accent); }
 .playlist-box-header {
     display: flex;
     align-items: center;
@@ -409,7 +416,7 @@ playlistStyle.textContent = `
 .playlist-box-info { display: flex; align-items: center; gap: 14px; }
 .playlist-box-emoji {
     width: 48px; height: 48px; border-radius: 10px;
-    background: #1e1e2a; display: flex; align-items: center;
+    background: var(--surface); display: flex; align-items: center;
     justify-content: center; font-size: 1.5rem;
 }
 .playlist-box-name { font-size: 0.95rem; font-weight: 500; }
