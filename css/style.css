@@ -902,7 +902,7 @@ body::before {
 
 @media (max-width: 768px) {
     :root {
-        --player-h: 140px;
+        --player-h: 158px;
     }
 
     .app {
@@ -991,10 +991,19 @@ body::before {
     .player-track-name {
         font-size: 0.85rem;
         max-width: 100%;
+        white-space: normal;
+        line-height: 1.25;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
     }
 
     .player-track-artist {
         font-size: 0.72rem;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
     }
 
     .player-controls {
