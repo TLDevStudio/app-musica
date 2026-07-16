@@ -1,41 +1,4 @@
 #!/usr/bin/env python3
-"""
-generate_tracks.py
-
-Escaneia uma pasta de músicas (mp3, ogg, wav, m4a, flac) e ACRESCENTA
-automaticamente novas entradas ao music/tracks.json usado pelo MySound,
-sem precisar digitar cada música manualmente no script.js e sem apagar
-o que já existe no tracks.json.
-
-Como usar (exemplo pro seu caso: 90 músicas antigas já catalogadas +
-105 novas numa subpasta separada):
-
-    1. Instale a dependência (uma vez só):
-         pip install mutagen --break-system-packages
-
-    2. Coloque as 105 músicas NOVAS dentro de uma subpasta própria,
-       por exemplo:
-         ./music/nova-playlist/
-
-       (as antigas continuam em ./music, sem mexer nelas)
-
-    3. Rode apontando pra essa subpasta e dando um nome de playlist:
-         python generate_tracks.py --dir ./music/nova-playlist --playlist "Nova Playlist"
-
-    4. Isso ACRESCENTA as novas músicas ao ./music/tracks.json que já existe,
-       sem apagar as 90 antigas nem mudar os IDs delas.
-       Se tracks.json ainda não existir, ele cria do zero.
-
-    5. Pode rodar de novo pra outras playlists/pastas depois — ele sempre
-       soma ao que já tem (e não duplica se rodar 2x pra mesma pasta).
-
-Como ele descobre título/artista:
-    1º) Lê as tags ID3 (metadados) do próprio arquivo, se existirem.
-    2º) Se não tiver tag, tenta o padrão de nome "Artista - Título.mp3".
-    3º) Se não bater nenhum padrão, usa o nome do arquivo como título
-        e "Desconhecido" como artista (edite depois no tracks.json,
-        é só texto simples, bem mais rápido que editar o script.js).
-"""
 
 import argparse
 import json
@@ -118,7 +81,6 @@ def main():
         print(f"Nenhum arquivo de áudio encontrado em '{scan_dir}'.")
         sys.exit(1)
 
-    # Carrega o tracks.json existente, se houver, pra não apagar nada
     existing = []
     if output_path.exists():
         try:
@@ -137,7 +99,7 @@ def main():
         url = build_relative_url(f, music_root)
         if url in existing_urls:
             skipped += 1
-            continue  # já está catalogada, não duplica
+            continue 
 
         tags = read_tags(f)
         if not tags or not tags.get("title"):

@@ -1,8 +1,3 @@
-// ── Isolamento por site ──
-// O localStorage é compartilhado por domínio, não por repositório.
-// Se este app estiver hospedado em algo como "usuario.github.io/algum-repo/",
-// usamos o caminho (pathname) como parte da chave, para que cada projeto
-// tenha sua própria "gaveta" de dados mesmo estando no mesmo domínio.
 const STORAGE_PREFIX = 'mysound_' + location.pathname.replace(/[^a-zA-Z0-9]/g, '_') + '_';
 
 const DATA_VERSION = 'v6';
@@ -23,13 +18,6 @@ let selectedEmoji = '🎵';
 const audio = document.getElementById('audioEl');
 audio.volume = volume;
 
-// ── Carregamento das músicas ──
-// Antes: as 105+ músicas ficavam digitadas aqui dentro, uma por uma.
-// Agora: elas ficam em ./music/tracks.json (gerado automaticamente pelo
-// script generate_tracks.py) e são carregadas por fetch quando o app abre.
-// Deixei aqui só a última música que você tinha adicionado manualmente,
-// como exemplo do formato — ela é usada apenas se o tracks.json não
-// existir ou falhar ao carregar.
 const FALLBACK_TRACKS = [
     { id: 82, title: 'Sonda-me, Usa-me', artist: 'Aline Barros', genre: 'Gospel', year: 'Antigas', emoji: '🙏', url: './music/sonda-me-usa-me.mp3', liked: false, playlist: 'Aline Barros' },
 ];
@@ -216,7 +204,6 @@ audio.addEventListener('ended', () => {
 audio.addEventListener('play', () => { isPlaying = true; updatePlayBtn(); render(tracks); });
 audio.addEventListener('pause', () => { isPlaying = false; updatePlayBtn(); render(tracks); });
 
-// ── Barra de progresso: suporte a mouse E toque ──
 function getProgressPct(bar, clientX) {
     const rect = bar.getBoundingClientRect();
     return Math.max(0, Math.min(1, (clientX - rect.left) / rect.width));
@@ -235,7 +222,6 @@ function applySeek(pct) {
 
 const progressBar = document.getElementById('progressBar');
 
-// Mouse
 progressBar.addEventListener('click', (e) => {
     applySeek(getProgressPct(progressBar, e.clientX));
 });

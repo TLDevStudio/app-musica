@@ -26,11 +26,9 @@ body {
     color: var(--text);
     font-family: 'DM Sans', sans-serif;
     overflow-x: hidden;
-    /* Impede bounce/scroll no iOS que sumia os controles */
     overscroll-behavior: none;
 }
 
-/* Grain overlay */
 body::before {
     content: '';
     position: fixed;
@@ -41,18 +39,15 @@ body::before {
     opacity: 0.6;
 }
 
-/* ── LAYOUT ── */
 .app {
     display: grid;
     grid-template-columns: 280px 1fr;
     grid-template-rows: 1fr var(--player-h);
     height: 100vh;
-    /* Garante que o app nunca ultrapasse a tela */
     max-height: 100vh;
     overflow: hidden;
 }
 
-/* ── SIDEBAR ── */
 .sidebar {
     grid-row: 1 / 2;
     background: var(--surface);
@@ -193,14 +188,12 @@ body::before {
     color: var(--accent);
 }
 
-/* ── MAIN ── */
 .main {
     grid-column: 2;
     grid-row: 1;
     overflow-y: auto;
     overflow-x: hidden;
     padding: 40px 48px;
-    /* Impede que o scroll some os controles no iOS */
     -webkit-overflow-scrolling: touch;
 }
 
@@ -255,7 +248,6 @@ body::before {
     flex-shrink: 0;
 }
 
-/* Now Playing Hero */
 .now-playing-hero {
     background: var(--card);
     border: 1px solid var(--border);
@@ -342,7 +334,6 @@ body::before {
     color: var(--muted);
 }
 
-/* Track list */
 .section-header {
     display: flex;
     align-items: center;
@@ -443,7 +434,6 @@ body::before {
     padding: 4px;
     border-radius: 50%;
     transition: color 0.2s, transform 0.15s;
-    /* Área de toque maior no mobile */
     min-width: 32px;
     min-height: 32px;
     justify-content: center;
@@ -458,7 +448,6 @@ body::before {
     color: var(--accent2);
 }
 
-/* ── PLAYER BAR ── */
 .player {
     grid-column: 1 / -1;
     grid-row: 2;
@@ -468,7 +457,6 @@ body::before {
     align-items: center;
     padding: 0 32px;
     gap: 24px;
-    /* Fixo — nunca some */
     position: relative;
     z-index: 100;
     flex-shrink: 0;
@@ -529,7 +517,6 @@ body::before {
     color: var(--accent2);
 }
 
-/* Controls */
 .player-controls {
     flex: 1;
     display: flex;
@@ -557,7 +544,6 @@ body::before {
     padding: 6px;
     border-radius: 50%;
     transition: color 0.2s, transform 0.15s;
-    /* Área de toque maior */
     min-width: 36px;
     min-height: 36px;
 }
@@ -615,7 +601,6 @@ body::before {
 
 .progress-bar {
     flex: 1;
-    /* Área de toque bem maior — facilita deslizar no celular */
     height: 20px;
     display: flex;
     align-items: center;
@@ -624,7 +609,6 @@ body::before {
     touch-action: none;
 }
 
-/* Trilha visual fina dentro da área de toque grande */
 .progress-bar::before {
     content: '';
     position: absolute;
@@ -649,7 +633,6 @@ body::before {
     pointer-events: none;
 }
 
-/* Volume */
 .player-volume {
     display: flex;
     align-items: center;
@@ -687,7 +670,6 @@ body::before {
     transition: width 0.1s;
 }
 
-/* Equalizer */
 .eq {
     display: flex;
     align-items: flex-end;
@@ -736,7 +718,6 @@ body::before {
     animation-play-state: paused;
 }
 
-/* ── MODAL ── */
 .modal-overlay {
     position: fixed;
     inset: 0;
@@ -804,7 +785,6 @@ body::before {
     font-size: 0.9rem;
     outline: none;
     transition: border-color 0.2s;
-    /* Evita zoom automático no iOS */
     font-size: 16px;
 }
 
@@ -880,7 +860,6 @@ body::before {
     transform: translateY(-1px);
 }
 
-/* FAB */
 .fab {
     position: fixed;
     bottom: calc(var(--player-h) + 20px);
@@ -908,7 +887,6 @@ body::before {
     box-shadow: 0 12px 32px rgba(74, 144, 217, 0.42);
 }
 
-/* Scrollbar */
 ::-webkit-scrollbar {
     width: 4px;
 }
@@ -922,9 +900,6 @@ body::before {
     border-radius: 4px;
 }
 
-/* ════════════════════════════════
-   MOBILE  (≤ 768px)
-   ════════════════════════════════ */
 @media (max-width: 768px) {
     :root {
         --player-h: 140px;
@@ -933,7 +908,6 @@ body::before {
     .app {
         grid-template-columns: 1fr;
         grid-template-rows: 1fr var(--player-h);
-        /* Usa dvh para contar a barra do navegador corretamente */
         height: 100dvh;
         max-height: 100dvh;
     }
@@ -994,17 +968,14 @@ body::before {
         font-size: 1.2rem;
     }
 
-    /* Player mobile — empilhado em duas linhas */
     .player {
         flex-direction: column;
         justify-content: center;
         padding: 10px 16px 12px;
         gap: 6px;
-        /* Garante que nunca suma atrás da barra do navegador */
         padding-bottom: env(safe-area-inset-bottom, 12px);
     }
 
-    /* Linha 1: thumb + nome + coração */
     .player-track {
         width: 100%;
         gap: 10px;
@@ -1026,7 +997,6 @@ body::before {
         font-size: 0.72rem;
     }
 
-    /* Linha 2: controles + barra */
     .player-controls {
         width: 100%;
         max-width: 100%;
@@ -1047,12 +1017,10 @@ body::before {
         min-height: 40px;
     }
 
-    /* Volume escondido no mobile */
     .player-volume {
         display: none;
     }
-
-    /* Barra de progresso — área de toque ainda maior */
+    
     .progress-bar {
         height: 28px;
     }
