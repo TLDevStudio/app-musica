@@ -973,7 +973,7 @@ body::before {
         justify-content: center;
         padding: 10px 16px 12px;
         gap: 6px;
-        padding-bottom: env(safe-area-inset-bottom, 12px);
+        padding-bottom: calc(env(safe-area-inset-bottom, 12px) + 14px);
     }
 
     .player-track {
@@ -1020,9 +1020,13 @@ body::before {
     .player-volume {
         display: none;
     }
-    
+
     .progress-bar {
         height: 28px;
+    }
+
+    .progress-row {
+        margin-bottom: 4px;
     }
 
     .fab {
